@@ -30,14 +30,15 @@ runs:
         TERM: xterm-256color
 
         # NOTE: This environment variable is for readability / convenience
-        GITHUB_NEOVIM_CHECKHEALTH_COMMAND: ${{ inputs.executable }} --headless -l $GITHUB_ACTION_PATH/main.lua "${{ inputs.checks }}" ${{ inputs.minimum_severity }}
+        GITHUB_NEOVIM_CHECKHEALTH_COMMAND_LINUX_UNIX: ${{ inputs.executable }} --headless -l $GITHUB_ACTION_PATH/main.lua "${{ inputs.checks }}" ${{ inputs.minimum_severity }}
+        GITHUB_NEOVIM_CHECKHEALTH_COMMAND_POWERSHELL: ${{ inputs.executable }} --headless -l $env:GITHUB_ACTION_PATH/main.lua "${{ inputs.checks }}" ${{ inputs.minimum_severity }}
       with:
         linux: |
-          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_LINUX_UNIX }}
           exit $?
         macos: |
-          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_LINUX_UNIX }}
           exit $?
         windows: |
-          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_POWERSHELL }}
           echo $LASTEXITCODE
