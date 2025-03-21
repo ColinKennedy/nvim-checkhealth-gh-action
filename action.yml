@@ -1,0 +1,43 @@
+name: 'Neovim :checkhealth Runner'
+description: 'Make sure Neovim health checks succeed'
+author: 'Colin Kennedy'
+branding:
+  color: 'blue'
+  icon: 'moon'
+inputs:
+  checks:
+    description: 'A list of checks to run. See `:help checkhealth` for the syntax.'
+    default: 'vim.*'
+    required: true
+  executable:
+    description: 'The relative or absolute path to a callable Neovim.'
+    default: 'nvim'
+    required: true
+  minimum_severity:
+    description: 'The minimum issue needed to produce an error. Example: "error" "info", "warn". Use "" to assign no minimum severity'
+    default: 'error'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Run
+      uses: knicknic/os-specific-run@v1.0.4
+      env:
+        # IMPORTANT: This is needed to avoid an error in Neovim nightly
+        # `- ERROR command failed: infocmp -L infocmp: environment variable TERM not set`
+        # Reference: https://github.com/ColinKennedy/nvim-checkhealth-gh-action/issues/1
+        #
+        TERM: xterm-256color
+
+        # NOTE: This environment variable is for readability / convenience
+        GITHUB_NEOVIM_CHECKHEALTH_COMMAND: ${{ inputs.executable }} --clean --headless -l $GITHUB_ACTION_PATH/main.lua "${{ inputs.checks }}" ${{ inputs.minimum_severity }}
+      with:
+        linux: |
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          exit $?
+        macos: |
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          exit $?
+        windows: |
+          ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND }}
+          echo $LASTEXITCODE
