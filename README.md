@@ -42,6 +42,15 @@ jobs:
 ```
 
 
+## Plugin Authors
+To make sure Neovim can see your health.lua file, make sure to add your plugin to the `:help runtimepath`.
+
+An example,
+[nvim-best-practices-plugin-template](https://github.com/ColinKennedy/nvim-best-practices-plugin-template/blob/main/.github/workflows/checkhealth.yml),
+shows that you can modify the `nvim` executable to `nvim -u minimal_init.lua` and
+provide any plugin-setup-logic there before this action gets called.
+
+
 ## Advanced Usage
 You can customize the `:checkhealth` command:
 
@@ -62,8 +71,10 @@ You can customize the `:checkhealth` command:
 It's common to override `checks` if you are writing a Neovim plugin that supports
 `:checkhealth`.
 
-But most of the time, you will want to keep the default values of `executable` and
-`severity`.
+If you're writing a plugin you probably will want to update `executable`. For an example,
+see [nvim-best-practices-plugin-template](https://github.com/ColinKennedy/nvim-best-practices-plugin-template/blob/main/.github/workflows/checkhealth.yml).
+
+And rarely does anyone want to check the default for `severity`.
 
 
 ## Settings

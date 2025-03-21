@@ -96,7 +96,7 @@ local function main()
 
     if not minimum or severity >= minimum then
         exit_code = severity
-        print(string.format('Found error "%s" using code "%s".', _Code[exit_code], exit_code))
+        print(string.format('Found error "%s" using code "%s".', _Code[tostring(exit_code)], exit_code))
     end
 
     vim.cmd(string.format("cquit %s", exit_code))
