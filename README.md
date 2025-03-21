@@ -3,8 +3,20 @@ Run `:checkhealth` for `nvim` and then exit. If there's an error, the GitHub act
 
 
 ## Usage
+name: Run :checkhealth
+Add this to your repository at `.github/workflows/checkhealth.yml`:
+
 ```yml
 name: Run :checkhealth
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+    - main
+  push:
+    branches:
+      - main
+
 jobs:
   checkhealth:
     strategy:
