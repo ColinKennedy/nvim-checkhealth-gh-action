@@ -6,7 +6,11 @@ a user's environment (and across different OSes).
 
 ## Usage
 ### Usage - Neovim Plugin
-Add this to your repository at `.github/workflows/checkhealth.yml`:
+If you want to run `nvim-checkhealth-gh-action` for your plugin's CI,
+add this to your repository at `.github/workflows/checkhealth.yml`:
+
+<details>
+<summary>Click to see details</summary>
 
 ```yml
 name: Run :checkhealth
@@ -42,15 +46,20 @@ jobs:
       - name: Run :checkhealth
         uses: ColinKennedy/nvim-checkhealth-gh-action@main
 ```
+</details>
 
-> [!Example]
+> 💡 **Example**
 > [nvim-best-practices-plugin-template](https://github.com/ColinKennedy/nvim-best-practices-plugin-template/blob/main/.github/workflows/checkhealth.yml)
 > shows that you can modify the `nvim` executable to `nvim -u minimal_init.lua` and
 > provide any plugin-setup-logic there before this action gets called.
 
 
 ### Usage - Neovim Configuration
-Basically the same steps as above but with some small path-related tweaks.
+If you're using `nvim-checkhealth-gh-action` for a whole Neovim configuration, the steps
+are mostly the same as the above but with some small, path-related tweaks.
+
+<details>
+<summary>Click to see details</summary>
 
 ```yml
 name: Run :checkhealth
@@ -90,8 +99,9 @@ jobs:
           XDG_CONFIG_HOME: ${{ github.workspace }}
         uses: ColinKennedy/nvim-checkhealth-gh-action@main
 ```
+</details>
 
-> [!NOTE]
+> 📝 **Note**
 > How it works: Neovim looks for a configuration file to load on-start-up at
 > `$XDG_CONFIG_HOME/nvim/init.lua`. **Assuming** your repository contains a `init.lua`
 > file at its root, adding `path: nvim` will create the `.../nvim/init.lua` part and
