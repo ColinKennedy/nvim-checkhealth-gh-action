@@ -34,11 +34,14 @@ runs:
         GITHUB_NEOVIM_CHECKHEALTH_COMMAND_POWERSHELL: ${{ inputs.executable }} --headless -l $env:GITHUB_ACTION_PATH/main.lua "${{ inputs.checks }}" ${{ inputs.minimum_severity }}
       with:
         linux: |
+          ${{ inputs.executable }} --version
           ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_LINUX_UNIX }}
           exit $?
         macos: |
+          ${{ inputs.executable }} --version
           ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_LINUX_UNIX }}
           exit $?
         windows: |
+          ${{ inputs.executable }} --version
           ${{ env.GITHUB_NEOVIM_CHECKHEALTH_COMMAND_POWERSHELL }}
           echo $LASTEXITCODE
